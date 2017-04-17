@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6E3629</color>
+    <color name="colorPrimaryDark">#2FA994</color>
+    <color name="colorAccent">#6B5162</color>
+
+    //Background Colors
+    <color name="backgroundImagePicker">#6B5162</color>
+    <color name="backgroundImagePicker1">#C8C6AD</color>
+    <color name="backgroundImagePicker2">#84AAB3</color>
+    <color name="backgroundImagePicker3">#5C767D</color>
+    <color name="blue_color">#238ECA</color>
+
+    <color name="colorTranslucent">#10000000</color>
+
+</resources>

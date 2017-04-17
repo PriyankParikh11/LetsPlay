@@ -1,0 +1,103 @@
+<resources>
+
+    //Welcome Screen Activity
+    <string name="welcome_page">Welcome to Sports Tournament 2017</string>
+    <string name="age_group">Please select your age group: </string>
+    <string name="age_6years">Up to 6 years</string>
+    <string name="age_12years">6 years to 12 years</string>
+    <string name="age_16years">13 years to 16 years</string>
+    <string name="age_40years">Above 40 Years</string>
+    <string name="venue_title"><u>Tournament Venue: </u></string>
+    <string name="venue_address">K. J. Chhatralaya, Nr. Navrangpura Post Office,
+        Opp. Navrangpura Bus Stand, Navrangpura, Ahmedabad - 380009</string>
+
+    //Application Screen Activity
+    <string name="application_title"><u>Application Form</u></string>
+    <string name="app_name">LetsPlay</string>
+    <string name="profile_picture"><u>Upload your Profile Picture</u></string>
+    <string name="email_address_hint">Email Address</string>
+    <string name="first_name_hint">First Name</string>
+    <string name="last_name_hint">Last Name</string>
+    <string name="take_picture"><u>Take Photo/Upload from gallery</u></string>
+    <string name="home_address1_hint">House Number, Society</string>
+    <string name="home_address2_hint">Street Address, City</string>
+    <string name="games_to_participate"><u>Select your game(s)</u></string>
+
+    <string name="email_autofill">Autofill</string>
+    <string name="desc">  </string>
+    <string name="desc1">  </string>
+
+    <string name="gender"><u>Gender</u></string>
+    <string name="gender_female">Female</string>
+    <string name="gender_male">Male</string>
+    <string name="contact_number_hint">Contact Number</string>
+    <string name="emergency_contact_number_hint">Emergency Contact Number</string>
+    <string name="alert_dialog_title"><b>"Terms and Policies of the Tournament: " </b></string>
+    <string name="terms_and_rules"><u>I Agree to the Terms and Policies of the Tournament</u></string>
+    <string name="upload_certificate"><u>Upload your Birth Certificate</u></string>
+
+    //Age Group Title
+    <string name="age_group_6">Up to 6 Years</string>
+    <string name="age_group_12">6 to 12 Years</string>
+    <string name="age_group_16">13 to 16 Years</string>
+    <string name="age_group_40">Above 40 Years</string>
+
+    <string name="first_game1">Game A (Game Description)</string>
+    <string name="second_game1">Game B (Game Description)</string>
+    <string name="third_game1">Game C (Game Description)</string>
+    <string name="fourth_game1">Game D (Game Description)</string>
+
+    <string name="first_game2">Game E (Game Description)</string>
+    <string name="second_game2">Game F (Game Description)</string>
+    <string name="third_game2">Game G (Game Description)</string>
+    <string name="fourth_game2">Game H (Game Description)</string>
+
+    <string name="first_game3">Game I (Game Description)</string>
+    <string name="second_game3">Game J (Game Description)</string>
+    <string name="third_game3">Game K (Game Description)</string>
+    <string name="fourth_game3">Game L (Game Description)</string>
+
+    <string name="first_game4">Game M (Game Description)</string>
+    <string name="second_game4">Game N (Game Description)</string>
+    <string name="third_game4">Game O (Game Description)</string>
+    <string name="fourth_game4">Game P (Game Description)</string>
+
+    <string name="review_button">REVIEW</string>
+    <string name="clear_button">RESET</string>
+
+    //Review Screen Activity
+    <string name="review_page">Review Page</string>
+    <string name="selected_games">The Game(s) you want to participate in: </string>
+    <string name="submit_button">SUBMIT</string>
+    <string name="back_button">BACK</string>
+
+    //Review Screen Text Fields
+    <string name="selected_profile_picture">Profile Picture: </string>
+    <string name="email_address">Email Address: </string>
+    <string name="first_name">First Name: </string>
+    <string name="last_name">Last Name: </string>
+    <string name="home_address">Home Address: </string>
+    <string name="contact_number">Contact Number: </string>
+    <string name="emergency_contact_number">Emergency Contact Number: </string>
+    <string name="selected_gender">Gender: </string>
+    <string name="selected_certificate_picture">Birth Certificate Picture: </string>
+    <string name="agree_to_terms"><u>Agreed to Terms and Policies</u></string>
+
+    //Close Activity
+    <string name="close_button">CLOSE</string>
+    <string name="home_button">HOME</string>
+    <string name="completed_message">Your Application form has been successfully submitted. You will receive the reply to: </string>
+    <string name="completed_message1">Thank you for taking the time to fill the Application form. </string>
+
+    //Camera Filter
+    <string name="none">None</string>
+    <string name="aqua">Aqua</string>
+    <string name="blackboard">Blackboard</string>
+    <string name="mono">Mono</string>
+    <string name="negative">Negative</string>
+    <string name="posterize">Posterize</string>
+    <string name="sepia">Sepia</string>
+    <string name="solarize">Solarize</string>
+    <string name="whiteboard">Whiteboard</string>
+
+</resources>

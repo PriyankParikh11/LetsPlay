@@ -1,0 +1,21 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.Design">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/backgroundImagePicker</item>
+        <item name="colorPrimaryDark">@color/backgroundImagePicker2</item>
+        <item name="alertDialogTheme">@style/Theme.AppCompat.Light.Dialog</item>
+        <item name="android:textColorHint">@color/backgroundImagePicker2</item>
+        <item name="colorAccent">@color/backgroundImagePicker</item>
+    </style>
+
+    <style name="AlertDialogCustom" parent="AlertDialog.AppCompat">
+
+        <item name="android:background">@color/backgroundImagePicker</item>
+        <item name="android:typeface">normal</item>
+        <item name="android:textSize">20sp</item>
+
+    </style>
+
+</resources>
