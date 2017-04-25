@@ -43,6 +43,7 @@ public class WelcomeActivity extends Activity {
 
         //Tournament Venue on map location
         mVenueOnMap = (TextView) findViewById(R.id.tournamentVenue);
+
         mVenueOnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
