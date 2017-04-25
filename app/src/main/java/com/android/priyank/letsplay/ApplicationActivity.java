@@ -13,18 +13,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.view.ContextThemeWrapper;
@@ -47,8 +42,7 @@ import android.widget.Toast;
 import com.firebase.client.Firebase;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static com.android.priyank.letsplay.R.drawable.ic_documents;
@@ -88,11 +82,9 @@ public class ApplicationActivity extends Activity {
     private CheckBox mCheckboxGame1, mCheckboxGame2, mCheckboxGame3,
             mCheckboxGame4, mTermsConditions;
 
-    //Gender Radio Buttons
-    private RadioButton mFemaleGender, mMaleGender;
-    
-    //Counter TextView
-    private TextView mContactNumberCounter, mEmergencyNumberCounter;
+    private RadioButton mFemaleGender, mMaleGender; //Gender Radio Buttons
+
+    private TextView mContactNumberCounter, mEmergencyNumberCounter; //Counter TextView
 
     //Title TextView
     TextView mApplicationFormTitle, mUploadProfileTitle,
@@ -105,7 +97,8 @@ public class ApplicationActivity extends Activity {
     Button mClear, mReview;
     Bitmap profileBitmap, certificateBitmap;
     Firebase mFirebaseRef;
-    ImagePicker mImagePicker;
+
+    ImagePicker mImagePicker; //ImagePicker class
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +110,7 @@ public class ApplicationActivity extends Activity {
 
         ApplicationActivity.this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-            //Age Group Layout selections
+        //Age Group Layout selections
         Bundle parameters = getIntent().getExtras();
 
         if (parameters != null && parameters.containsKey("layout")) {
@@ -286,7 +279,7 @@ public class ApplicationActivity extends Activity {
 
                     // account.name as an email address only for certain account.type values.
                     sPossibleEmail = account.name;
-                    Log.e(TAG, "Accounts: " + account);
+                    Log.i(TAG, "Accounts: " + account);
                 }
                 //hiding the autofill link once Email is set
                 mEmailAddress.setText(sPossibleEmail);
@@ -432,13 +425,14 @@ public class ApplicationActivity extends Activity {
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper
                         (ApplicationActivity.this, R.style.AlertDialogCustom));
-                //Confirmation Title
-                builder.setTitle("Confirmation");
+
+                builder.setTitle("Confirmation"); //Confirmation Title
+
                 //Confirmation Message
                 builder.setMessage("Are you sure you want to clear all the fields?");
                 builder.setIcon(R.mipmap.question);
 
-                //Positive Button
+                //Negative Button
                 builder.setPositiveButton("NO", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -447,7 +441,7 @@ public class ApplicationActivity extends Activity {
                     }
                 });
 
-                //Negative Button
+                //Positive Button
                 builder.setNegativeButton("YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -475,44 +469,44 @@ public class ApplicationActivity extends Activity {
                 //Validation for Blank EditText Fields
                 if (mFirstName.getText().toString().length() <= 2) {
                     Toast.makeText(getApplicationContext(), "Name field cannot be left Blank",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                     mFirstName.setError("At least 3 Characters");
                     return;
 
                 } else if (mLastName.getText().toString().length() == 0) {
                     Toast.makeText(getApplicationContext(), "Last Name field cannot be left Blank",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                     mLastName.setError("At least 1 Character");
                     return;
 
                 } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(mEmailAddress.getText().
                         toString()).matches()) {
                     Toast.makeText(getApplicationContext(), "Invalid Email Address",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                     mEmailAddress.setError("Enter a Valid Email Address");
                     return;
 
                 } else if (mHomeAddress.getText().toString().length() <= 5) {
                     Toast.makeText(getApplicationContext(), "Home Address cannot be left Blank",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                     mHomeAddress.setError("Enter your Home Address");
                     return;
 
                 } else if (mHomeAddress1.getText().toString().length() <= 5) {
                     Toast.makeText(getApplicationContext(), "Street Address cannot be left Blank",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                     mHomeAddress1.setError("Enter your Street Address");
                     return;
 
                 } else if (mContactNumber.getText().toString().length() <= 7) {
                     Toast.makeText(getApplicationContext(), "Invalid Phone Number",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                     mContactNumber.setError("At least 8 digits");
                     return;
 
                 } else if (mEmergencyNumber.getText().toString().length() <= 7) {
                     Toast.makeText(getApplicationContext(), "Invalid Emergency Contact Number",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                     mEmergencyNumber.setError("At least 8 digits");
                     return;
 
@@ -521,7 +515,7 @@ public class ApplicationActivity extends Activity {
                         && (!(mCheckboxGame3.isChecked()))
                         && (!(mCheckboxGame4.isChecked()))) {
                     Toast.makeText(getBaseContext(), "No games Selected",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                     return;
 
                 } else if (!(mTermsConditions.isChecked())) {
@@ -686,7 +680,12 @@ public class ApplicationActivity extends Activity {
             //Request Camera
             if (requestCode == CAMERA_REQUEST) {
 
-                setProfileCameraImage(intent, resultCode);
+                try {
+                    setProfileCameraImage(intent, resultCode);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
 
             //Request Gallery
             } else if (requestCode == GALLERY_REQUEST) {
@@ -715,14 +714,11 @@ public class ApplicationActivity extends Activity {
     //Set Profile Image with Camera
     protected void setProfileCameraImage(Intent intent, int resultCode) {
 
-        //Uri mCapturedImageUri = intent.getData();
-        //String profileImagePath = mCapturedImageUri.toString();
-        //Log.e(TAG, "Profile Image Path: " + profileImagePath);
-
+        mImagePicker = new ImagePicker();
         profileBitmap = (Bitmap) intent.getExtras().get("data");
-        Uri mCapturedImageUri = getImageUri(getApplicationContext(), profileBitmap);
-        File profileImagePath = new File(getRealPathFromURI(mCapturedImageUri));
         mProfileImage = (ImageView) findViewById(R.id.profilePicture);
+
+        //Uri mCapturedImageUri = intent.getData();
 
         try {
             String[] ids = mCameraManager.getCameraIdList();
@@ -754,6 +750,7 @@ public class ApplicationActivity extends Activity {
                     assertTrue("System doesn't have front camera feature",
                             mPackageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
                     try {
+                        //Bitmap bp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mCapturedImageUri);
                         Bitmap bp = ImagePicker.getImageFromResult(this, resultCode, intent);
                         assert bp != null;
                         mProfileImage.setImageBitmap(bp);
@@ -761,22 +758,13 @@ public class ApplicationActivity extends Activity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
                 } else {
                     fail("Unknown camera lens facing " + lensFacing.toString());
                 }
             }
-        }catch (CameraAccessException e) {
-            e.printStackTrace();
-        }
 
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        try {
-            FileOutputStream fo;
-            fo = new FileOutputStream(profileImagePath);
-            fo.write(bytes.toByteArray());
-            fo.flush();
-            fo.close();
-        } catch (IOException e) {
+        }catch (CameraAccessException e) {
             e.printStackTrace();
         }
     }
@@ -784,14 +772,11 @@ public class ApplicationActivity extends Activity {
     //Set Certificate Image with Camera
     protected void setCertificateCameraImage(Intent intent, int resultCode) {
 
-        //Uri mCapturedImageUri = intent.getData();
-        //String certificateImagePath = mCapturedImageUri.toString();
-        //Log.e(TAG, "Profile Image Path: " + certificateImagePath);
-
+        mImagePicker = new ImagePicker();
         certificateBitmap = (Bitmap) intent.getExtras().get("data");
-        Uri mCapturedImageUri = getImageUri(getApplicationContext(), certificateBitmap);
-        File certificateImagePath = new File(getRealPathFromURI(mCapturedImageUri));
         mCertificateImage = (ImageView) findViewById(R.id.certificateImage);
+
+        //Uri mCapturedImageUri = intent.getData();
 
         try {
             String[] ids = mCameraManager.getCameraIdList();
@@ -804,6 +789,7 @@ public class ApplicationActivity extends Activity {
                 Integer lensFacing = props.get(CameraCharacteristics.LENS_FACING);
                 assertNotNull("Can't get lens facing info", lensFacing);
 
+                //Camera device faces the opposite direction as the device's screen
                 if (lensFacing == CameraCharacteristics.LENS_FACING_BACK) {
                     assertTrue("System doesn't have back camera feature",
                             mPackageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_AUTOFOCUS));
@@ -816,11 +802,12 @@ public class ApplicationActivity extends Activity {
                         e.printStackTrace();
                     }
 
-                    //Camera device faces the same direction as the device's screen
+                //Camera device faces the same direction as the device's screen
                 } else if (lensFacing == CameraCharacteristics.LENS_FACING_FRONT) {
                     assertTrue("System doesn't have front camera feature",
                             mPackageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
                     try {
+                        //Bitmap bp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mCapturedImageUri);
                         Bitmap bp = ImagePicker.getImageFromResult(this, resultCode, intent);
                         assert bp !=null;
                         mCertificateImage.setImageBitmap(bp);
@@ -834,32 +821,6 @@ public class ApplicationActivity extends Activity {
         }catch (CameraAccessException e) {
             e.printStackTrace();
         }
-
-        ByteArrayOutputStream bytes1 = new ByteArrayOutputStream();
-        try {
-            FileOutputStream fo;
-            fo = new FileOutputStream(certificateImagePath);
-            fo.write(bytes1.toByteArray());
-            fo.flush();
-            fo.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
-    }
-
-    public String getRealPathFromURI(Uri uri) {
-        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-        assert cursor != null;
-        cursor.moveToFirst();
-        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-        return cursor.getString(idx);
     }
 
     //Clear all fields
@@ -884,7 +845,7 @@ public class ApplicationActivity extends Activity {
         mCheckboxGame4.setChecked(false);
     }
 
-    //Hide keyboard when touch anywhere else on teh screen
+    //Hide keyboard when touched anywhere else on the screen
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         final int action = MotionEventCompat.getActionMasked(ev);
@@ -904,12 +865,6 @@ public class ApplicationActivity extends Activity {
             input.hideSoftInputFromWindow(mFirstName.getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
     }
 
     @Override

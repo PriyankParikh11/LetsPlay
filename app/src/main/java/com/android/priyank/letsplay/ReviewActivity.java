@@ -154,7 +154,6 @@ public class ReviewActivity extends Activity {
 
         //Set Profile Image
         bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-
         mProfile.setImageBitmap(bitmap);
 
         //Set Certificate Image
@@ -219,9 +218,7 @@ public class ReviewActivity extends Activity {
         String sGender = mRadioGender.getText().toString().trim();
         String sAgeGroup = mAgeGroup.getText().toString().trim();
         String sSelectedGames = mCheckboxValue.getText().toString().trim();
-
         //String strLastFourDi = phoneNumber.length() >= 4 ? phoneNumber.substring(phoneNumber.length() - 4): "";
-
         String mKey = mFirebaseRef.child(sAgeGroup).push().getKey().trim();
 
         Firebase participants = mFirebaseRef.child(sAgeGroup);
@@ -239,6 +236,12 @@ public class ReviewActivity extends Activity {
         participant.put("AgeGroup ", sAgeGroup);
         participant.put("FullName", sFirstName + " " + sLastName);
         participant.put("Key ", mKey);
+
+        Bundle extras = getIntent().getExtras();
+
+        //Profile Image
+        byte[] byteArray = extras.getByteArray("profilePicture");
+        assert byteArray != null;
 
         //Firebase Profile Image
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -269,22 +272,31 @@ public class ReviewActivity extends Activity {
         Log.e(TAG, "Profile Image Path " +
                 mProfileRef.getName().equals(mProfileImagesRef.getPath()));
 
-        //Upload Profile Image to FireBase Storage
-        UploadTask uploadTask = mProfileRef.putBytes(bytes);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+        //Check if Profile Image is Valid before uploading to firebase
+        if (bitmap != null) {
 
-                Log.e(TAG, "Download URL " + downloadUrl);
-            }
-        });
+            //Upload Profile Image to FireBase Storage
+            UploadTask uploadTask = mProfileRef.putBytes(bytes);
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
+
+                    Log.e(TAG, "Download URL " + downloadUrl);
+                }
+            });
+
+        } else {
+            Toast.makeText(getBaseContext(), "Please Add a valid Profile Picture",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
 
         //Firebase Certificate Image
         ByteArrayOutputStream baos1 = new ByteArrayOutputStream();
@@ -309,25 +321,34 @@ public class ReviewActivity extends Activity {
         Log.e(TAG, "Profile Image Path " +
                 mCertificateRef.getName().equals(mCertificateImagesRef.getPath()));
 
-        //Upload Certificate Image to FireBase Storage
-        UploadTask uploadTask1 = mCertificateRef.putBytes(bytes1);
-        uploadTask1.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                Uri downloadUrl1 = taskSnapshot.getDownloadUrl();
+        //Check if Certificate Image is Valid before uploading to firebase
+        if (bitmap1 != null) {
 
-                Log.e(TAG, "Certificate Download URL " + downloadUrl1);
-            }
-        });
+            //Upload Certificate Image to FireBase Storage
+            UploadTask uploadTask1 = mCertificateRef.putBytes(bytes1);
+            uploadTask1.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                    Uri downloadUrl1 = taskSnapshot.getDownloadUrl();
 
-        //AgeGroup>Key>[First Name + LastName + (Contact Number)]>Detailed Value
-        participants.child(sFirstName + " " + sLastName).setValue(participant);
+                    Log.e(TAG, "Certificate Download URL " + downloadUrl1);
+                }
+            });
+
+            //AgeGroup>Key>[First Name + LastName + (Contact Number)]>Detailed Value
+            participants.child(sFirstName + " " + sLastName).setValue(participant);
+
+        } else {
+            Toast.makeText(getBaseContext(), "Please add a valid Birth Certificate Image",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
 
         closeApplication();
     }

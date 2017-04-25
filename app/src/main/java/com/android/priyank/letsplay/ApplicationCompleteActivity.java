@@ -47,10 +47,6 @@ public class ApplicationCompleteActivity extends Activity implements View.OnClic
             Intent intent = new Intent(ApplicationCompleteActivity.this, WelcomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
 
-            //Intent intent = new Intent(Intent.ACTION_MAIN);
-            //intent.addCategory(Intent.CATEGORY_HOME);
-            //startActivity(theIntent);
-
             startActivity(intent);
         }
 

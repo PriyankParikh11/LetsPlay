@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -17,15 +18,15 @@ import org.w3c.dom.Text;
 
 public class WelcomeActivity extends Activity {
 
-    TextView mHeading, mAgeSelection;
+    TextView mHeading, mAgeSelection, mVenueOnMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //Fix Orientation to Portrait
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_welcome);
-
 
         final Button age6 = (Button)findViewById(R.id.age_button1);
         final Button age12 = (Button)findViewById(R.id.age_button2);
@@ -39,6 +40,24 @@ public class WelcomeActivity extends Activity {
         age12.setTypeface(mCustomFont2);
         age16.setTypeface(mCustomFont2);
         age40.setTypeface(mCustomFont2);
+
+        //Tournament Venue on map location
+        mVenueOnMap = (TextView) findViewById(R.id.tournamentVenue);
+        mVenueOnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                double latitude = 23.035118;
+                double longitude = 72.563395;
+                String label = "K. J. Chhatralaya";
+                String uriBegin = "geo:" + latitude + "," + longitude;
+                String query = latitude + "," + longitude + "(" + label + ")";
+                String encodedQuery = Uri.encode(query);
+                String uriString = uriBegin + "?q=" + encodedQuery + "&z=20";
+                Uri uri = Uri.parse(uriString);
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
 
         //Title Fonts
         mHeading = (TextView) findViewById(R.id.welcome_title);

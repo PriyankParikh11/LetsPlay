@@ -7,9 +7,9 @@
     <string name="age_12years">6 years to 12 years</string>
     <string name="age_16years">13 years to 16 years</string>
     <string name="age_40years">Above 40 Years</string>
-    <string name="venue_title"><u>Tournament Venue: </u></string>
-    <string name="venue_address">K. J. Chhatralaya, Nr. Navrangpura Post Office,
-        Opp. Navrangpura Bus Stand, Navrangpura, Ahmedabad - 380009</string>
+    <string name="venue_title">Tournament Venue: </string>
+    <string name="venue_address"><u>K. J. Chhatralaya, Nr. Navrangpura Post Office,
+        Opp. Navrangpura Bus Stand, Navrangpura, Ahmedabad - 380009</u></string>
 
     //Application Screen Activity
     <string name="application_title"><u>Application Form</u></string>

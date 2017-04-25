@@ -57,7 +57,7 @@
             android:textStyle="bold"
             android:textColor="@color/backgroundImagePicker"
             android:textAlignment="center"
-            android:background="@drawable/button_bg"
+            android:background="@drawable/button"
             android:backgroundTint="@android:color/transparent"/>
 
         <Button
@@ -72,7 +72,7 @@
             android:textColor="@color/backgroundImagePicker"
             android:text="@string/age_12years"
             android:textAlignment="center"
-            android:background="@drawable/button_bg"
+            android:background="@drawable/button"
             android:backgroundTint="@android:color/transparent"/>
 
         <Button
@@ -87,7 +87,7 @@
             android:textColor="@color/backgroundImagePicker"
             android:textAlignment="center"
             android:text="@string/age_16years"
-            android:background="@drawable/button_bg"
+            android:background="@drawable/button"
             android:backgroundTint="@android:color/transparent"/>
 
         <Button
@@ -103,7 +103,7 @@
             android:textStyle="bold"
             android:textColor="@color/backgroundImagePicker"
             android:textAlignment="center"
-            android:background="@drawable/button_bg"
+            android:background="@drawable/button"
             android:backgroundTint="@android:color/transparent"/>
 
     </LinearLayout>
@@ -128,12 +128,14 @@
             android:textAlignment="center"/>
 
         <TextView
+            android:id="@+id/tournamentVenue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/backgroundImagePicker"
             android:textAlignment="center"
             android:text="@string/venue_address"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:linksClickable="true"/>
 
     </LinearLayout>
 
